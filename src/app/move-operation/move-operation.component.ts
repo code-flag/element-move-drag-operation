@@ -400,27 +400,39 @@ export class MoveOperationComponent implements OnInit {
 
   newTaskBlockNumber: any = 0;
   newTaskItem: string = '';
+  modalLabel: string = "Add new Item to Task";
+
+
   newTaskText(event:any) {
     this.newTaskItem = event.target.value;
   }
 
   addNewTask() {
-    if (this.newTaskBlockNumber == 1) {
+    if (this.newTaskBlockNumber == 1 && this.newTaskItem != '') {
+      this.modalLabel = "Add item to Backlog List ";
       this.blockData[0].push({id: this.blockData[0].length + 1 , item: this.newTaskItem, blockNumber: 0});
     }
-    else if (this.newTaskBlockNumber == 2) {
+    else if (this.newTaskBlockNumber == 2 && this.newTaskItem != '') {
+      this.modalLabel = "Add item to In Progress List ";
       this.blockData[1].push({id: this.blockData[1].length + 1 , item: this.newTaskItem, blockNumber: 1});
     }
-    else if (this.newTaskBlockNumber == 3) {
+    else if (this.newTaskBlockNumber == 3 && this.newTaskItem != '') {
+      this.modalLabel = "Add item to Done List ";
       this.blockData[3].push({id: this.blockData[2].length + 1 , item: this.newTaskItem, blockNumber: 2});
     }
     this.renderer.removeClass(this.modal.nativeElement, "show");
     this.renderer.addClass(this.modal.nativeElement, "hide");
+    this.newTaskItem = '';
   }
 
   showNewTaskModal(blockNumber: any) {
     this.newTaskBlockNumber = blockNumber;
     this.renderer.removeClass(this.modal.nativeElement, "hide");
     this.renderer.addClass(this.modal.nativeElement, "show");
+  }
+
+  closeModal() {
+    this.renderer.removeClass(this.modal.nativeElement, "show");
+    this.renderer.addClass(this.modal.nativeElement, "hide");
   }
 }

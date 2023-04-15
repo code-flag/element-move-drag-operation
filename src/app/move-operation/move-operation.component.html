@@ -24,9 +24,10 @@
 
     <div class="modal hide" #modal>
         <form action="">
-            <label for="newTask" >Add new Item to Task</label>
+            <label for="newTask" >{{modalLabel}}</label>
             <textarea name="newTask" id="newTask" cols="30" rows="4" placeholder="enter new task here" (keyup)="newTaskText($event)"></textarea>
             <div class="btn" (click)="addNewTask()">Add</div>
+            <div class="btn" (click)=" closeModal() " style="background: #ee3311;">Cancel</div>
         </form>
     </div>
     

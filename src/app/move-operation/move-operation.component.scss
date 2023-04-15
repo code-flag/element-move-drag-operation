@@ -111,7 +111,7 @@
 }
 
  form {
-    max-width: 500px;
+    min-width: 500px;
     background-color: #fff;
     display: flex;
     justify-content: center;
@@ -127,14 +127,17 @@
  }
 
  textarea {
+    width: 100%;
     flex: 1;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     outline: none;
     padding: 10px;
+    box-sizing: border-box;
+    
+    border-radius: 5px;
  }
  textarea:focus {
     border: 2px solid #626cfc;
-    border-radius: 5px;
  }
 
  .btn {
@@ -165,4 +168,11 @@
 
  .show {
     display: flex;
+ }
+
+ @media screen and (width: 640px) {
+    form {
+        width: 90%;
+        padding: 20px;
+    }
  }

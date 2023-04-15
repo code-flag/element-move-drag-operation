@@ -1,0 +1,99 @@
+.page-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+
+}
+
+.component-wrapper {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    .block-list {
+        min-width: 250px;
+        max-width: 400px;
+        flex: 1;
+        padding: 0px;
+        margin: 20px;
+        display: flex;
+        justify-content: baseline;
+        align-items:center;
+        flex-direction: column;
+        text-transform: capitalize;
+        overflow: hidden;
+        border: 1px solid #aaa;
+        border-radius: 8px;
+
+        &.block-border-color {
+            border: 1px solid #1647e9;
+            box-shadow: 0 6px 6px #0a10143d, 0 0 6px #0a10141f;
+            box-sizing: border-box;
+            transition: box-shadow .5s;
+        }
+
+        .header {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            font-size: 20px;
+            font-weight: bold;
+            word-spacing: 0.5px;
+            text-align: center;
+            background-color: #f2f2fd;
+    color: #000;
+        }
+    
+        .item {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 15px;
+            border-top: 1px solid #aaa;
+            // border-bottom: 1px solid #aaa;
+            box-sizing: border-box;
+            cursor: pointer;
+
+            &.active {
+                color: #fff;
+                animation: fadeInColor 0.75s ease-in-out forwards;
+
+            }
+           @keyframes fadeInColor {
+                0% {background-color: #6d1065;}
+                50% {background-color: #b4b5ff;}
+                100% {background-color: #4935fd;}
+           }
+            
+            &:active {
+                background-color: #fff;
+                border: none;
+                box-shadow: 3px 3px 25px 5px #eee inset;
+            }
+        
+        }
+    }
+}
+
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .btn {
+        padding: 15px 50px;
+        background-color: #1647e9;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        &:active {
+            opacity: 0.5;
+        }
+    }
+}

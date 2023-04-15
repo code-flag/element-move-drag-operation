@@ -1,0 +1,21 @@
+<div class="page-wrapper">
+    <div class="navbar">
+        <div class="btn" (click)="navigate()">Go to Drag Operation</div>
+    </div>
+    <div class="component-wrapper">
+        <div class="block-list" #block1>
+            <div class="header">Backlog</div>
+            <div *ngFor="let item of blockData[0]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)"[class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'"  >{{item.item}}</div>
+        </div>
+
+        <div class="block-list" #block2>
+            <div class="header">In Progress</div>
+            <div *ngFor="let item of blockData[1]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)" [class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'" >{{item.item}}</div>
+        </div>
+
+        <div class="block-list" #block3 >
+            <div class="header">Done</div>
+            <div *ngFor="let item of blockData[2]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)" [class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'" >{{item.item}}</div>
+        </div>
+    </div>
+</div>

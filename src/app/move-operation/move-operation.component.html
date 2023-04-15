@@ -1,34 +1,100 @@
 <div class="page-wrapper">
-    <div class="navbar">
-        <div class="btn" (click)="navigate()">Go to Drag Operation</div>
-    </div>
-    <div class="component-wrapper">
-        <div class="block-list" #block1>
-            <div class="header">Backlog</div>
-            <div *ngFor="let item of blockData[0]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)"[class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'"  >{{item.item}}</div>
-            <div class="btn" (click)="showNewTaskModal(1)"> + New Task</div>
-        </div>
-
-        <div class="block-list" #block2>
-            <div class="header">In Progress</div>
-            <div *ngFor="let item of blockData[1]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)" [class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'" >{{item.item}}</div>
-            <div class="btn" (click)="showNewTaskModal(2)"> + New Task</div>
-        </div>
-
-        <div class="block-list" #block3 >
-            <div class="header">Done</div>
-            <div *ngFor="let item of blockData[2]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)" [class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'" >{{item.item}}</div>
-            <div class="btn" (click)="showNewTaskModal(3)"> + New Task</div>
-        </div>
+  <div class="navbar">
+    <div class="btn" (click)="navigate()">Go to Drag Operation</div>
+    <div class="btn" (click)="showManual()">See how this page works</div>
+  </div>
+  <div class="component-wrapper">
+    <div class="block-list" #block1>
+      <div class="header">Backlog</div>
+      <div
+        *ngFor="let item of blockData[0]"
+        (click)="getTheCurrentItemPosition(item.id, item.blockNumber)"
+        [class]="
+          item.id == itemIndex && item.blockNumber == blockNumber
+            ? 'item active'
+            : 'item'
+        "
+      >
+        {{ item.item }}
+      </div>
+      <div class="btn" (click)="showNewTaskModal(1)">+ New Task</div>
     </div>
 
-    <div class="modal hide" #modal>
-        <form action="">
-            <label for="newTask" >{{modalLabel}}</label>
-            <textarea name="newTask" id="newTask" cols="30" rows="4" placeholder="enter new task here" (keyup)="newTaskText($event)"></textarea>
-            <div class="btn" (click)="addNewTask()">Add</div>
-            <div class="btn" (click)=" closeModal() " style="background: #ee3311;">Cancel</div>
-        </form>
+    <div class="block-list" #block2>
+      <div class="header">In Progress</div>
+      <div
+        *ngFor="let item of blockData[1]"
+        (click)="getTheCurrentItemPosition(item.id, item.blockNumber)"
+        [class]="
+          item.id == itemIndex && item.blockNumber == blockNumber
+            ? 'item active'
+            : 'item'
+        "
+      >
+        {{ item.item }}
+      </div>
+      <div class="btn" (click)="showNewTaskModal(2)">+ New Task</div>
     </div>
-    
+
+    <div class="block-list" #block3>
+      <div class="header">Done</div>
+      <div
+        *ngFor="let item of blockData[2]"
+        (click)="getTheCurrentItemPosition(item.id, item.blockNumber)"
+        [class]="
+          item.id == itemIndex && item.blockNumber == blockNumber
+            ? 'item active'
+            : 'item'
+        "
+      >
+        {{ item.item }}
+      </div>
+      <div class="btn" (click)="showNewTaskModal(3)">+ New Task</div>
+    </div>
+  </div>
+
+  <div class="modal hide" #modal>
+    <form action="">
+      <label for="newTask">{{ modalLabel }}</label>
+      <textarea
+        name="newTask"
+        id="newTask"
+        cols="30"
+        rows="4"
+        placeholder="enter new task here"
+        (keyup)="newTaskText($event)"
+      ></textarea>
+      <div class="btn" (click)="addNewTask()">Add</div>
+      <div class="btn" (click)="closeModal()" style="background: #ee3311">
+        Cancel
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hide" #modal2>
+    <div class="how-it-work" style="background-color: white">
+      <h2>How it works</h2>
+      <ul>
+        <li>use Tab: to move focus from right to left of the list</li>
+        <li>use Shift + Tab : to move focus from left to right of the list</li>
+        <li>
+          Use j, k, h, l : to move focus up,down, left, right on each Item List
+          table
+        </li>
+        <li>
+          Use SHIFT + j, k: to move item object up, down the List
+        </li>
+        <li>
+            Use SHIFT + h, l: to move item object  left and right to another list table
+          </li>
+
+        <li>double click g fast(gg): to move focus to top item of list</li>
+        <li>double click G(GG): focus move to bottom of list</li>
+      </ul>
+
+      <div class="btn" (click)="closeModal()">
+        Close
+      </div>
+    </div>
+  </div>
 </div>

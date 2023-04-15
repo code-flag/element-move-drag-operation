@@ -9,36 +9,6 @@ import { Router } from '@angular/router';
 
 export class MoveOperationComponent implements OnInit {
 
-  constructor(private element: ElementRef,
-    private renderer: Renderer2,
-    private changeDetection: ChangeDetectorRef,
-    private router: Router
-    ) { }
-
-
-  public KEY_CODE = {
-    UP_ARROW: 38,
-    DOWN_ARROW: 40,
-    RIGHT_ARROW: 39,
-    LEFT_ARROW: 37
-  }
-
-  @ViewChild('block1') block1!: ElementRef;
-  @ViewChild('block2') block2!: ElementRef;
-  @ViewChild('block3') block3!: ElementRef;
-  @ViewChild('modal') modal!: ElementRef;
-  // dblclick 
-  // mousedown 
-
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.renderer.addClass(this.block1.nativeElement, "block-border-color");
-      this.itemIndex = 1;
-      this.blockNumber = 0;
-    }, 500);
-  }
-
   title = 'moveOperation';
   
   
@@ -82,9 +52,41 @@ export class MoveOperationComponent implements OnInit {
   moveItemLeftKey: string = 'H';
   moveItemRightKey: string = 'L';
 
+  newTaskBlockNumber: any = 0;
+  newTaskItem: string = '';
+  modalLabel: string = "Add new Item to Task";
+
+  constructor(private element: ElementRef,
+    private renderer: Renderer2,
+    private changeDetection: ChangeDetectorRef,
+    private router: Router
+    ) { }
+
+    // variable for DOM manipulation
+  @ViewChild('block1') block1!: ElementRef;
+  @ViewChild('block2') block2!: ElementRef;
+  @ViewChild('block3') block3!: ElementRef;
+  @ViewChild('modal') modal!: ElementRef;
+  @ViewChild('modal2') modal2!: ElementRef;
+  // dblclick 
+  // mousedown 
+
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.renderer.addClass(this.block1.nativeElement, "block-border-color");
+      this.itemIndex = 1;
+      this.blockNumber = 0;
+    }, 500);
+  }
   
-   keyGDoubleCLick() {
-       this.itemIndex = 1;
+   keyGDoubleCLick(letter: string) {
+       if(letter === 'g'){
+        this.itemIndex = 1;
+       }
+       else if(letter === 'G'){
+        this.itemIndex = this.blockData[this.blockNumber].length ;
+       }
    }
 
 
@@ -109,8 +111,12 @@ export class MoveOperationComponent implements OnInit {
       this.getFocusKeyEvent(event.key);
       
       setTimeout(() => {
-        if (this.doubleClick > 1 && event.key == 'g') {
-          this.keyGDoubleCLick();
+        if (this.doubleClick > 1 && event.key === 'g') {
+          this.keyGDoubleCLick('g');
+          this.doubleClick = 0;
+        }
+        else if (this.doubleClick > 1 && event.key === 'G') {
+          this.keyGDoubleCLick('G');
           this.doubleClick = 0;
         }
       }, 200);
@@ -137,6 +143,7 @@ export class MoveOperationComponent implements OnInit {
     return newBlockData;
   }
 
+  
   getFocusKeyEvent(key: any) {
     
     console.log("item number", this.itemIndex, "block number", this.blockNumber);
@@ -398,11 +405,6 @@ export class MoveOperationComponent implements OnInit {
     this.router.navigate(['/drag-operation']);
   }
 
-  newTaskBlockNumber: any = 0;
-  newTaskItem: string = '';
-  modalLabel: string = "Add new Item to Task";
-
-
   newTaskText(event:any) {
     this.newTaskItem = event.target.value;
   }
@@ -434,5 +436,12 @@ export class MoveOperationComponent implements OnInit {
   closeModal() {
     this.renderer.removeClass(this.modal.nativeElement, "show");
     this.renderer.addClass(this.modal.nativeElement, "hide");
+    this.renderer.removeClass(this.modal2.nativeElement, "show");
+    this.renderer.addClass(this.modal2.nativeElement, "hide");
+  }
+
+  showManual() {
+    this.renderer.removeClass(this.modal2.nativeElement, "hide");
+    this.renderer.addClass(this.modal2.nativeElement, "show");
   }
 }

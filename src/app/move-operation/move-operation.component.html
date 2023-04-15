@@ -6,16 +6,28 @@
         <div class="block-list" #block1>
             <div class="header">Backlog</div>
             <div *ngFor="let item of blockData[0]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)"[class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'"  >{{item.item}}</div>
+            <div class="btn" (click)="showNewTaskModal(1)"> + New Task</div>
         </div>
 
         <div class="block-list" #block2>
             <div class="header">In Progress</div>
             <div *ngFor="let item of blockData[1]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)" [class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'" >{{item.item}}</div>
+            <div class="btn" (click)="showNewTaskModal(2)"> + New Task</div>
         </div>
 
         <div class="block-list" #block3 >
             <div class="header">Done</div>
             <div *ngFor="let item of blockData[2]" (click)="getTheCurrentItemPosition(item.id, item.blockNumber)" [class]="item.id == itemIndex &&  item.blockNumber == blockNumber  ? 'item active' : 'item'" >{{item.item}}</div>
+            <div class="btn" (click)="showNewTaskModal(3)"> + New Task</div>
         </div>
     </div>
+
+    <div class="modal hide" #modal>
+        <form action="">
+            <label for="newTask" >Add new Item to Task</label>
+            <textarea name="newTask" id="newTask" cols="30" rows="4" placeholder="enter new task here" (keyup)="newTaskText($event)"></textarea>
+            <div class="btn" (click)="addNewTask()">Add</div>
+        </form>
+    </div>
+    
 </div>

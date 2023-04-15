@@ -26,6 +26,7 @@ export class MoveOperationComponent implements OnInit {
   @ViewChild('block1') block1!: ElementRef;
   @ViewChild('block2') block2!: ElementRef;
   @ViewChild('block3') block3!: ElementRef;
+  @ViewChild('modal') modal!: ElementRef;
   // dblclick 
   // mousedown 
 
@@ -90,8 +91,7 @@ export class MoveOperationComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log("event", event);
-    
+
     if (event.shiftKey && event.key === 'Tab') {
       event.preventDefault();
       this.changeFocus("left");
@@ -101,17 +101,15 @@ export class MoveOperationComponent implements OnInit {
       this.changeFocus("right");
     }
     else if (event.shiftKey && event.key) {
-      console.log("shift event.key", event.key);
       this.getMoveItemKeyEvent(event.key);
     }
     else {
       this.doubleClick++;
+      
+      this.getFocusKeyEvent(event.key);
+      
       setTimeout(() => {
-        if (this.doubleClick == 1) {
-          this.doubleClick = 0;
-          this.getFocusKeyEvent(event.key);
-        }
-        else if (this.doubleClick > 1 && event.key == 'g') {
+        if (this.doubleClick > 1 && event.key == 'g') {
           this.keyGDoubleCLick();
           this.doubleClick = 0;
         }
@@ -398,5 +396,31 @@ export class MoveOperationComponent implements OnInit {
 
   navigate() {
     this.router.navigate(['/drag-operation']);
+  }
+
+  newTaskBlockNumber: any = 0;
+  newTaskItem: string = '';
+  newTaskText(event:any) {
+    this.newTaskItem = event.target.value;
+  }
+
+  addNewTask() {
+    if (this.newTaskBlockNumber == 1) {
+      this.blockData[0].push({id: this.blockData[0].length + 1 , item: this.newTaskItem, blockNumber: 0});
+    }
+    else if (this.newTaskBlockNumber == 2) {
+      this.blockData[1].push({id: this.blockData[1].length + 1 , item: this.newTaskItem, blockNumber: 1});
+    }
+    else if (this.newTaskBlockNumber == 3) {
+      this.blockData[3].push({id: this.blockData[2].length + 1 , item: this.newTaskItem, blockNumber: 2});
+    }
+    this.renderer.removeClass(this.modal.nativeElement, "show");
+    this.renderer.addClass(this.modal.nativeElement, "hide");
+  }
+
+  showNewTaskModal(blockNumber: any) {
+    this.newTaskBlockNumber = blockNumber;
+    this.renderer.removeClass(this.modal.nativeElement, "hide");
+    this.renderer.addClass(this.modal.nativeElement, "show");
   }
 }
